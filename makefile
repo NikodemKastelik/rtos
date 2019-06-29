@@ -79,6 +79,16 @@ print:
 	@echo $(SRC_C)
 	@echo $(SRC_S)
 
+.PHONY: qemu
+qemu:
+	@qemu-system-arm -machine lm3s811evb \
+    -cpu cortex-m3 \
+    -s \
+    -S \
+    -nographic \
+    -serial mon:stdio -append 'console=ttyS0' \
+    -kernel $(ELF)
+
 $(BUILDDIR)/%.d: ;
 .PRECIOUS: $(BUILDDIR)/%.d
 
